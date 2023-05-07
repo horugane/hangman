@@ -12,33 +12,40 @@ Game::~Game()
 
 void Game::setFailLimit()
 {
-	cout << "input the limit for failure: ";
-	int fl;
-	cin >> fl;
-	failLimit = fl;
+	cout << "Enter the limit for failed guesses: ";
+	int fLimit;
+	cin >> fLimit;
+	failLimit = fLimit;
+	cout << "Limit set successfully!\n" << endl;
+	system("pause");
 }
 
 void Game::setHintLimit()
 {
-	int hl;
+	int hLimit;
 	do {
-		cout << "input the limit for hint: ";
-		cin >> hl;
-		if (hl > 0 && hl < wordLimit) {
-			hintLimit = hl;
+		cout << "Enter the limit for hints allowed: ";
+		cin >> hLimit;
+		if (hLimit > 0 && hLimit < wordLimit) {
+			hintLimit = hLimit;
+			cout << "Limit set successfully!\n" << endl;
+			system("pause");
+			break;
 		}
 		else {
 			cout << "Invalid number of hint limit" << endl;
 		}
-	} while (!(hl > 0 && hl < wordLimit));
+	} while (!(hLimit > 0 && hLimit < wordLimit));
 }
 
 void Game::setWordLimit()
 {
-	cout << "input the number of words to  be guess: ";
-	int wl;
-	cin >> wl;
-	wordLimit = wl;
+	cout << "Enter the limit of words to be guessed in a match: ";
+	int wLimit;
+	cin >> wLimit;
+	wordLimit = wLimit;
+	cout << "Limit set successfully!\n" << endl;
+	system("pause");
 }
 
 int Game::getFailLimit()
@@ -61,9 +68,9 @@ int Game::getNumberWord()
 	return wordBank.size();
 }
 
-void Game::addWord(Word* w)
+void Game::addWord(Word* word)
 {
-	wordBank.push_back(w);
+	wordBank.push_back(word);
 }
 
 void Game::resetWordBank()
@@ -91,7 +98,22 @@ void Game::shuffleWordBank()
 	}
 }
 
+void Game::getWordList()
+{
+	if (wordBank.empty()) {
+		cout << "Word bank is empty, add more words!\n" << endl;
+	}
+	else {
+		cout << "Displaying all words in the Word Bank:" << endl;
+		for (const auto& word : wordBank) {
+			cout << word->getText() << endl;
+		}
+		cout << endl;
+	}
+}
+
 Word* Game::getOneWord(int index)
 {
 	return wordBank[index];
 }
+

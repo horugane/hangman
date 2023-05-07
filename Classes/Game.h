@@ -14,18 +14,22 @@ private:
 	int failLimit, hintLimit, wordLimit;
 	vector<Word*> wordBank;
 public:
+	// constructors and destructors
 	Game();
 	~Game();
+	// getters and setters
 	void setFailLimit();
 	void setHintLimit();
 	void setWordLimit();
+
 	int getFailLimit();
 	int getHintLimit();
 	int getWordLimit();
 	int getNumberWord();
-	void addWord(Word* w);
+	// functions
+	void addWord(Word* word);
 	void resetWordBank();
 	void shuffleWordBank();
+	void getWordList();
 	Word* getOneWord(int index);
 };
-

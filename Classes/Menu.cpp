@@ -1,19 +1,16 @@
 #include "Menu.h"
 
-Menu::Menu()
+Menu::Menu() : name(""), description(""), action(-1)
 {
-	name = "";
-	description = "";
 	subMenu.clear();
-	action = -1;
 }
 
 Menu::Menu(string name, string description, int action)
 {
 	this->name = name;
 	this->description = description;
-	this->action = action;
 	this->subMenu.clear();
+	this->action = action;
 }
 
 Menu::~Menu()
@@ -61,29 +58,31 @@ int Menu::getAction()
 void Menu::displayMenu()
 {
 	system("cls");
-	cout << "\t\t\t" << name << "\t\t\t" << endl;
+	cout << "\t\t" << name << "\t\t" << endl;
 	cout << description << endl;
 	for (int i = 0; i < subMenu.size(); i++) {
-		cout << i + 1 << "." << subMenu[i]->getName() << endl;
+		cout << i + 1 << ". " << subMenu[i]->getName() << endl;
 	}
 }
-
+	
 void Menu::addSubMenu(Menu* m)
 {
 	this->subMenu.push_back(m);
-	// m->subMenu.push_back(this) : auto push parent menu 
+	// m->subMenu.push_back(this) : auto push parent menu
 }
 
 int Menu::promtOption()
 {
+	bool errorDisplayed = false; //flag to track if an error message has been displayed
 	while (true) {
-		cout << "Pick an option: ";
 		int option;
+		cout << "\nPick an option: ";
 		cin >> option;
 		try {
 			if (cin.fail()) {
-				throw "Invalid input";
+				cin.clear();
 				cin.ignore();
+				throw "Invalid input, strings or characters are not allowed.";
 			}
 			else if (option < 1 || option > subMenu.size()) {
 				throw "Menu out of range";
@@ -93,9 +92,22 @@ int Menu::promtOption()
 			}
 		}
 		catch (const char* error) {
-			cin.ignore();
 			cin.clear();
-			cout << "Error: " << error << endl;
+			cin.ignore();
+			if (errorDisplayed) {
+				cout << "\033[1A";
+				cout << "\033[K";
+				cout << "\033[1A";
+				cout << "\033[1A";
+				cout << "\033[K";
+				cout << "Error: " << error << endl;
+			}
+			else {
+				cout << "\033[1A"; // Move the cursor up one line
+				cout << "\033[K"; // Clear the line
+				cout << "Error: " << error << endl;
+				errorDisplayed = true;
+			}
 		}
 	}
 }

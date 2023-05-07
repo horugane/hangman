@@ -1,11 +1,10 @@
 #pragma once
 #include <iostream>
-#include < string>
+#include <string>
 
 using namespace std;
 
-class Word
-{
+class Word {
 private:
 	string text;
 	string hint;
@@ -22,4 +21,3 @@ public:
 	void displayWord();
 	int checkGuess(char n);
 };
-

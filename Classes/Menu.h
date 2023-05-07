@@ -27,4 +27,3 @@ public:
 	int promtOption();
 	Menu* getSubMenu(int index);
 };
-

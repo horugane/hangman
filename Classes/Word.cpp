@@ -13,8 +13,7 @@ Word::Word(string text, string hint)
 	this->hint = hint;
 }
 
-Word::~Word()
-{
+Word::~Word() {
 }
 
 void Word::setText(string text)

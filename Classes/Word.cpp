@@ -21,7 +21,7 @@ void Word::setText(string text)
 	this->text = text;
 	displayText = text;
 	for (int i = 0; i < text.length(); i++) {
-		displayText[i] = '_';
+		displayText[i] = '-';
 	}
 }
 
@@ -45,9 +45,14 @@ string Word::getHint()
 	return hint;
 }
 
+bool Word::isWordGuessed()
+{
+	return displayText == text;
+}
+
 void Word::displayWord()
 {
-	cout << "The word has " << text.size() << " characters" << endl;
+	cout << "The word has " << text.size() << " characters\n" << endl;
 	cout << displayText << endl;
 }
 

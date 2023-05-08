@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <ctime>
+#include <Windows.h>
 #include "Word.h"
 
 using namespace std;
@@ -16,7 +17,6 @@ private:
 public:
 	// constructors and destructors
 	Game();
-	Game(int, int, int, int, int, int);
 	~Game();
 	// getters and setters
 	void setFailLimit();

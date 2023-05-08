@@ -95,7 +95,6 @@ void Game::shuffleWordBank()
 		if (count > 10) {
 			break;
 		}
-		delete tmp;
 	}
 }
 
@@ -120,31 +119,54 @@ Word* Game::getOneWord(int index)
 
 void Game::playGame()
 {
-	Word word;
-	Word* w = new Word(word);
-	bool rerun = true;
-	int n = rand() % wordBank.size();
-	shuffleWordBank(); getOneWord(n);
-	system("cls");
-	while (rerun) {
-		while (failCount < failLimit) {
-			cout << "Guess a letter: ";
-			char letter; cin >> letter;
-			if (getOneWord(n)->checkGuess(letter) == 0) {
+	char letter, choice;
+	Word* w;
+	bool rerun = true, rerun2 = true;
+	failCount = 0;
+	failLimit = 7;
+	do {
+		int n = rand() % wordBank.size();
+		shuffleWordBank();
+		w = getOneWord(n);
+		system("cls");
+		w->displayWord();
+		while (failCount < failLimit && !w->isWordGuessed()) {
+			cout << "\nGuess a letter: ";
+			cin >> letter;
+			if (w->checkGuess(letter) == 0) {
 				failCount++;
-				cout << "Wrong guess, letter '" << letter << "' does not exist!";
-				cout << "\nYou have " << failCount - 1 << "tries left." << endl;
+				system("cls");
+				w->displayWord();
+				cout << "\nWrong guess, the letter does not exist for this word!" << endl;
+				cout << "You have " << failLimit-- << " tries left." << endl;
 			}
 			else {
-				cout << "A letter has been found!" << endl;
+				system("cls");
+				w->displayWord();
+				cout << "\nA letter has been found!" << endl;
 			}
-			if (getOneWord(n)->getText() == w->getText()) {
-				cout << "You have guessed the correct word!" << endl;
-				break;
+			if (w->isWordGuessed()) {
+				cout << "\nYou have guessed the correct word! Congratulations!" << endl;
+				Sleep(3000);
 			}
 		}
-		if (failCount == failLimit) {
-			char choice;
+		system("cls");
+		cout << "Start a new game? (Y/N): "; cin >> choice;
+		while (choice != 'y' && choice != 'Y' && choice != 'n' && choice != 'N') {
+			cout << "\033[1A"; // Move the cursor up one line
+			cout << "\033[K"; // Clear the line
+			cout << "\033[1A"; // Move the cursor up one line
+			cout << "\033[K"; // Clear the line
+			cout << "Invalid input, enter again. \nStart a new game? (Y/N): "; cin >> choice;
+		}
+		if (choice == 'n' || choice == 'N') {
+			break;
+		}
+		
+	} while (choice == 'y' || choice == 'Y');
+
+	if (failCount == failLimit) {
+		while (rerun2) {
 			system("cls");
 			cout << "Gane over... Try again? (Y/N): "; cin >> choice;
 			while (choice != 'y' && choice != 'Y' && choice != 'n' && choice != 'N') {
@@ -158,7 +180,8 @@ void Game::playGame()
 				rerun = true;
 			}
 			else if (choice == 'n' || choice == 'N') {
-				rerun = false;
+				rerun2 = false;
+				break;
 			}
 		}
 	}

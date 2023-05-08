@@ -13,11 +13,14 @@ public:
 	Word();
 	Word(string text, string hint);
 	~Word();
+	
 	void setText(string text);
 	void setHint(string hint);
 	int getTextLength();
 	string getText();
 	string getHint();
+
+	bool isWordGuessed();
 	void displayWord();
 	int checkGuess(char n);
 };

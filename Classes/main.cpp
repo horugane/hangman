@@ -3,9 +3,9 @@
 #include "Game.h"
 #include "Menu.h"
 #include "Word.h"
-
-
 using namespace std;
+
+void displayWelcomeMessage();
 
 enum ACTION {
 	ADD,
@@ -73,7 +73,20 @@ int main() {
 	// declare class variables
 	Game game;
 	Word w;
-	Word* newWord = new Word();
+	Word word1("lion", "king of the jungle"),
+		 word2("england", "once, the sun never slept in this country"),
+		 word3("pineapple", "fruit"),
+		 word4("sword", "two-edge medieval melee weapon");
+	
+	Word* w1 = new Word(word1);
+	Word* w2 = new Word(word2);
+	Word* w3 = new Word(word3);
+	Word* w4 = new Word(word4);
+
+	game.addWord(w1);
+	game.addWord(w2);
+	game.addWord(w3);
+	game.addWord(w4);
 
 	bool answer = true;
 	while (answer == true) {
@@ -84,8 +97,14 @@ int main() {
 		switch (currentMenu->getAction()) {
 		case -1:
 			break;
-		case PLAY:
+		case PLAY: {
+			system("cls");
+			displayWelcomeMessage();
+			system("pause");
+			game.playGame();
+			currentMenu = mainMenu;
 			break;
+		}
 		case CHALLENGER:
 			currentMenu = menuChallenger;
 			break;
@@ -113,6 +132,7 @@ int main() {
 				cout << "Enter the word to be added: ";
 				cin.ignore();
 				getline(cin, input);
+				Word* newWord = new Word();
 				newWord->setText(input);
 				cout << "Enter the hint of the word: ";
 				cin.ignore();
@@ -123,7 +143,9 @@ int main() {
 				cout << "Do you want to add more words? (Y/N): ";
 				cin >> choice;
 				while (choice != 'y' && choice != 'Y' && choice != 'n' && choice != 'N') {
-					cout << "Invalid input, enter again: "; cin >> choice;
+					cout << "\033[1A"; // Move the cursor up one line
+					cout << "\033[K"; // Clear the line
+					cout << "Invalid input, enter again (Y/N): "; cin >> choice;
 				}
 				if (choice == 'y' || choice == 'Y') {
 					rerun = true;
@@ -156,7 +178,7 @@ int main() {
 			cout << "Listing the members contributing to this program:\n";
 			cout << "\n\tGroup 3";
 			cout << "\n+-----------------------+";
-			cout  << "\n|Nguyen Nhu Hoang Phuong|" << "\n|Dang Trung Hieu        |" << "\n|Duong Anh Trung        |" << endl;
+			cout << "\n|Nguyen Nhu Hoang Phuong|" << "\n|Dang Trung Hieu        |" << "\n|Duong Anh Trung        |" << endl;
 			cout << "+-----------------------+\n" << endl;
 			system("pause");
 			currentMenu = mainMenu;
@@ -170,4 +192,23 @@ int main() {
 		}
 	}
 	return 0;
+}
+
+void displayWelcomeMessage()
+{
+	cout << "+----------------------------------------------+"
+		 << "\n|The demon lord is threatening the peace of the|"
+		 << "\n| world once again! Should he not be stopped,  |"
+		 << "\n|    the world will be doomed to oblivion!     |"
+		 << "\n+----------------------------------------------+"
+		 << "\n|   Our hero has been captured after a fierce  |"
+		 << "\n|battle with the demon lord, and is locked by a|"
+		 << "\n| magical lock that can only be unlocked with  |"
+		 << "\n| the correct password. Your task is to guess  |"
+		 << "\n| the hidden password to free the hero, but be |"
+		 << "\n|  warned: too many incorrect guesses and our  |"
+		 << "\n|hero will be choked to death by the death rope|"
+		 << "\n+----------------------------------------------+"
+		 << "\n|           Let the rescue begins!             |"
+		 << "\n+----------------------------------------------+\n" << endl;
 }

@@ -16,6 +16,7 @@ private:
 public:
 	// constructors and destructors
 	Game();
+	Game(int, int, int, int, int, int);
 	~Game();
 	// getters and setters
 	void setFailLimit();
@@ -27,9 +28,11 @@ public:
 	int getWordLimit();
 	int getNumberWord();
 	// functions
+
 	void addWord(Word* word);
 	void resetWordBank();
 	void shuffleWordBank();
 	void getWordList();
 	Word* getOneWord(int index);
+	void playGame();
 };

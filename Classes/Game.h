@@ -17,6 +17,7 @@ private:
 public:
 	// constructors and destructors
 	Game();
+	Game(int, int, int, int, int, int); 
 	~Game();
 	// getters and setters
 	void setFailLimit();

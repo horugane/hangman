@@ -71,7 +71,7 @@ int main() {
 	system("pause");
 
 	// declare class variables
-	Game game;
+	Game game(0, 2, 4, 7, 2, 4);
 	Word w;
 	Word word1("lion", "king of the jungle"),
 		 word2("england", "once, the sun never slept in this country"),
@@ -176,9 +176,8 @@ int main() {
 			currentMenu = credit;
 			system("cls");
 			cout << "Listing the members contributing to this program:\n";
-			cout << "\n\tGroup 3";
 			cout << "\n+-----------------------+";
-			cout << "\n|Nguyen Nhu Hoang Phuong|" << "\n|Dang Trung Hieu        |" << "\n|Duong Anh Trung        |" << endl;
+			cout << "\n|    Duong Anh Trung    |" << endl;
 			cout << "+-----------------------+\n" << endl;
 			system("pause");
 			currentMenu = mainMenu;
